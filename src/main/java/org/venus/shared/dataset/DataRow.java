@@ -11,7 +11,7 @@ import org.venus.shared.dataset.impl.DataValues;
  * 主に以下の機能を提供します:
  * <ul>
  * <li>指定されたカラムやインデックスに基づいて値を取得・設定する</li>
- * <li>現在の行に関連付けられた {@link DataSet}, {@link DataValues}, または状態情報を取得する</li>
+ * <li>現在の行に関連付けられた {@link DataTable}, {@link DataValues}, または状態情報を取得する</li>
  * <li>他のオブジェクトからデータをコピーする</li>
  * <li>行自体を削除する操作</li>
  * </ul>
@@ -79,7 +79,7 @@ public interface DataRow {
      *
      * @return データセット
      */
-    DataSet getSet();
+    DataTable getDataTable();
 
     /**
      * 行の状態を返します。

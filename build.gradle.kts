@@ -14,7 +14,7 @@ plugins {
     // Javaプラグインを適用（Javaプロジェクトのサポート）
     java
     // Spring Bootプラグイン
-    id("org.springframework.boot") version "4.0.4"
+    id("org.springframework.boot") version "4.0.6"
     // Spring関連の依存関係の管理用プラグイン
     id("io.spring.dependency-management") version "1.1.7"
     id("se.patrikerdes.use-latest-versions") version "0.2.19"
@@ -23,7 +23,7 @@ plugins {
     // id("org.flywaydb.flyway") version "11.3.4"
     jacoco
 }
-
+group = "org.venus"
 version = "0.0.1-SNAPSHOT"
 
 java {
@@ -67,11 +67,15 @@ dependencies {
     testImplementation("com.github.spotbugs:spotbugs-annotations:${property("spotbugsAnnotationVersion")}")
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
+    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
     implementation("com.google.guava:guava:${property("guavaVersion")}")
     implementation("org.jspecify:jspecify:${property("jspecifyVersion")}")
     implementation("com.ibm.icu:icu4j:${property("icu4jVersion")}")
     testRuntimeOnly("com.h2database:h2")
     implementation("com.fasterxml.uuid:java-uuid-generator:5.1.0")
+    // assertJ
+    testImplementation("org.assertj:assertj-core:3.27.7")
+    testImplementation("org.mockito:mockito-core:5.23.0")
 
     annotationProcessor("cc.jilt:jilt:${property("jiltVersion")}")
     // https://mvnrepository.com/artifact/com.googlecode.libphonenumber/libphonenumber

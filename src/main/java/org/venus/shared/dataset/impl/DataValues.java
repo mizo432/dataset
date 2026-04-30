@@ -55,4 +55,23 @@ public class DataValues implements Iterable<DataValue> {
         return list.get(columnIndex);
 
     }
+
+    public Object getValue(String columnName) {
+        for (DataValue value : list) {
+            if (columnName.equals(value.column().getColumnName()))
+                return value.getValue();
+        }
+        return null;
+    }
+
+    public void setValue(@NonNull String columnName, Object newValue) {
+        for (DataValue value : list) {
+            if (columnName.equals(value.column().getColumnName())) {
+                value.setValue(newValue);
+                return;
+            }
+        }
+    }
+
+
 }

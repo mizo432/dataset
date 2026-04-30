@@ -1,21 +1,26 @@
 package org.venus.shared.dataset;
 
+import javax.sql.DataSource;
+
 /**
- * {@code RowState} クラスは、データ行の現在の状態を表現するために使用されます。
+ * {@code RowState} インターフェースは、データ行の状態を管理、制御するためのメソッドを定義します。
  * <p>
- * このクラスは {@link DataRow} インターフェース内の状態管理において利用され、
- * データ行が持つライフサイクル状態や変更状況を表現します。
- * <p>
- * 主な使用例:
- * <ul>
- * <li>データ行が新規作成された場合の状態。</li>
- * <li>データ行に変更が加えられた場合の状態。</li>
- * <li>データ行が削除された場合の状態。</li>
- * <li>データ行が未変更である場合の状態。</li>
- * </ul>
- * <p>
- * システムのデータ管理プロセス内でこの状態を利用することで、
- * 適切なデータ管理操作（例: データベースコミットやロールバック）をサポートします。
+ * このインターフェースにより、行の状態に基づいた処理を実現することが可能です。
+ * 主に、行データをデータベースに更新する操作を提供します。
  */
-public class RowState {
+public enum RowState {
+    UNKNOWN {
+        @Override
+        void update(DataSource dataSource, DataRow row) {
+            throw new UnsupportedOperationException("RowState is unknown");
+        }
+    };
+
+    /**
+     * 行の内容をデータベースに更新します。
+     *
+     * @param dataSource データソース
+     * @param row        行
+     */
+    abstract void update(DataSource dataSource, DataRow row);
 }

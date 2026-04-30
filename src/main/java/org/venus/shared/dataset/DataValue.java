@@ -14,5 +14,9 @@ package org.venus.shared.dataset;
  */
 public interface DataValue {
     Object getValue();
-    
+
+    void setValue(Object newValue);
+
+    DataColumn column();
+
 }

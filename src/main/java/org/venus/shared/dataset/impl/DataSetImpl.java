@@ -6,7 +6,7 @@ import org.venus.shared.dataset.*;
 import java.sql.DatabaseMetaData;
 import java.util.Iterator;
 
-public class DataSetImpl implements DataSet, Iterable<DataRow> {
+public class DataSetImpl implements DataTable, Iterable<DataRow> {
 
     private final DataColumns columns = DataColumns.empty();
     private boolean hasMetaData;
@@ -42,7 +42,7 @@ public class DataSetImpl implements DataSet, Iterable<DataRow> {
 
     @Override
     public DataRow addRow() {
-        return rows.add(columns);
+        return rows.add(this, columns);
     }
 
     @Override

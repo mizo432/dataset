@@ -19,4 +19,9 @@ public class DataValueImpl implements DataValue {
     public void setValue(Object value) {
         this.value = value;
     }
+
+    @Override
+    public DataColumn column() {
+        return column;
+    }
 }

@@ -1,8 +1,9 @@
 package org.venus.shared.dataset.impl;
 
+import org.jspecify.annotations.NonNull;
 import org.venus.shared.dataset.ColumnNotFoundRuntimeException;
 import org.venus.shared.dataset.DataRow;
-import org.venus.shared.dataset.DataSet;
+import org.venus.shared.dataset.DataTable;
 import org.venus.shared.dataset.RowState;
 
 /**
@@ -13,13 +14,16 @@ import org.venus.shared.dataset.RowState;
  * 主に以下の機能を実現します:
  * <ul>
  * <li>特定のカラムインデックスやカラム名に基づいてデータを取得および設定する機能</li>
- * <li>{@link DataSet} や {@link DataValues} を通じた関連データ構造へのアクセス</li>
+ * <li>{@link DataTable} や {@link DataValues} を通じた関連データ構造へのアクセス</li>
  * <li>行の状態変更やコピー操作</li>
  * <li>行データの削除操作</li>
  * </ul>
  */
 public class DataRowImpl implements DataRow {
     private final DataValues values = new DataValues();
+    private RowState state = RowState.UNKNOWN;
+    private DataTable table;
+
 
     /**
      * {@code DataRowImpl} クラスのコンストラクタ。
@@ -29,7 +33,8 @@ public class DataRowImpl implements DataRow {
      * @param columns 初期化に使用する {@link DataColumns} インスタンス。
      *                このオブジェクトは新しいデータ行を構成するカラム情報を提供します。
      */
-    public DataRowImpl(DataColumns columns) {
+    public DataRowImpl(DataTable dataTable, DataColumns columns) {
+        table = dataTable;
         values.addAllColumn(columns);
 
     }
@@ -58,7 +63,7 @@ public class DataRowImpl implements DataRow {
      * @throws IndexOutOfBoundsException カラムインデックスが無効な場合。
      */
     @Override
-    public Object getValue(int columnIndex) {
+    public Object getValue(int columnIndex) throws IndexOutOfBoundsException {
         return values.get(columnIndex).getValue();
     }
 
@@ -74,7 +79,7 @@ public class DataRowImpl implements DataRow {
      */
     @Override
     public Object getValue(String columnName) throws ColumnNotFoundRuntimeException {
-        return null;
+        return values.getValue(columnName);
     }
 
     /**
@@ -102,7 +107,8 @@ public class DataRowImpl implements DataRow {
      * @throws ColumnNotFoundRuntimeException 指定されたカラム名が有効でない場合。
      */
     @Override
-    public void setValue(String columnName, Object value) throws ColumnNotFoundRuntimeException {
+    public void setValue(@NonNull String columnName, Object value) throws ColumnNotFoundRuntimeException {
+        values.setValue(columnName, value);
 
     }
 
@@ -114,12 +120,12 @@ public class DataRowImpl implements DataRow {
     /**
      * データ行に関連付けられたデータセットを取得します。
      *
-     * @return このデータ行に関連付けられている {@link DataSet} オブジェクト。
+     * @return このデータ行に関連付けられている {@link DataTable} オブジェクト。
      * 関連付けられているデータセットがない場合は {@code null} を返します。
      */
     @Override
-    public DataSet getSet() {
-        return null;
+    public DataTable getDataTable() {
+        return table;
     }
 
     /**
@@ -132,8 +138,8 @@ public class DataRowImpl implements DataRow {
      * 状態が設定されていない場合や、適切な状態を取得できない場合は {@code null} を返します。
      */
     @Override
-    public RowState getState() {
-        return null;
+    public @NonNull RowState getState() {
+        return state;
     }
 
     /**
@@ -147,7 +153,9 @@ public class DataRowImpl implements DataRow {
      *                 {@code null} を指定することはできません。
      */
     @Override
-    public void setState(RowState rowState) {
+    public void setState(@NonNull RowState rowState) {
+        this.state
+                = rowState;
 
     }
 
