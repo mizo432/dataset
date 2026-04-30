@@ -13,10 +13,31 @@ package org.venus.shared.dataset;
  * 性質を定義する必要があります。
  */
 public interface DataValue {
+    /**
+     * このメソッドは、現在のオブジェクトに関連付けられている値を返します。
+     * 実装クラスにより保持されるデータの型や内容は異なる可能性があります。
+     *
+     * @return オブジェクトの値。この値は {@code Object} 型として返されるため、
+     * 実際の型は取得元のクラス実装に依存します。
+     */
     Object getValue();
 
+    /**
+     * このメソッドは、新しい値を設定します。
+     *
+     * @param newValue 設定する新しい値。この値は {@code Object} 型として提供されます。
+     */
     void setValue(Object newValue);
 
+    /**
+     * このメソッドは、データ値に関連付けられた {@link DataColumn} オブジェクトを返します。
+     * <p>
+     * {@link DataColumn} はデータセット内の単一の列を表し、列名や型、位置情報などの
+     * 基本的な列プロパティを管理します。このメソッドを使用することで、現在のデータ値が
+     * 属する列に関する情報にアクセスすることができます。
+     *
+     * @return データ値に関連付けられた {@link DataColumn} オブジェクト
+     */
     DataColumn column();
 
 }
