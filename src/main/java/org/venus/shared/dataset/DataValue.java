@@ -1,4 +1,4 @@
-package org.venus.shared.dataset.value;
+package org.venus.shared.dataset;
 
 /**
  * データ値を表現するためのインタフェースです。
@@ -13,4 +13,6 @@ package org.venus.shared.dataset.value;
  * 性質を定義する必要があります。
  */
 public interface DataValue {
+    Object getValue();
+    
 }

@@ -1,6 +1,9 @@
-package org.venus.shared.dataset.value;
+package org.venus.shared.dataset.impl;
 
 import org.jspecify.annotations.NonNull;
+import org.venus.shared.dataset.DataColumn;
+import org.venus.shared.dataset.DataRow;
+import org.venus.shared.dataset.DataValue;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -17,11 +20,12 @@ import java.util.List;
  * 内部で空の {@link DataValue} リストを保持しており、現在の実装では
  * 空のイテレーションを提供します。
  * <p>
- * 主に {@link org.venus.shared.dataset.row.DataRow} インタフェースを通じて
+ * 主に {@link DataRow} インタフェースを通じて
  * 使用されます。
  */
 public class DataValues implements Iterable<DataValue> {
     private static final List<DataValue> EMPTY = Collections.unmodifiableList(new ArrayList<>());
+    private static final List<DataValue> list = new ArrayList<>();
 
     /**
      * このメソッドは {@link DataValue} オブジェクトのためのイテレータを提供します。
@@ -34,5 +38,21 @@ public class DataValues implements Iterable<DataValue> {
     @Override
     public @NonNull Iterator<DataValue> iterator() {
         return EMPTY.iterator();
+    }
+
+    public void addAllColumn(DataColumns columns) {
+        for (int i = 0; i < columns.size(); i++) {
+            addColumn(columns.get(i));
+        }
+
+    }
+
+    public void addColumn(DataColumn column) {
+        list.add(new DataValueImpl(column));
+    }
+
+    public DataValue get(int columnIndex) throws IndexOutOfBoundsException {
+        return list.get(columnIndex);
+
     }
 }

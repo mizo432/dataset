@@ -32,6 +32,7 @@ java {
     }
 
 }
+
 tasks {
     withType<JavaCompile> {
         // コンパイラの警告を有効化（未チェック警告）
@@ -112,6 +113,7 @@ tasks.test {
 }
 
 val mediumTest = tasks.register("mediumTest", Test::class.java) {
+    description = "ミデアムサイズのテストを実行します"
     group = "verification"
     useJUnitPlatform {
         includeTags("medium")
@@ -120,6 +122,7 @@ val mediumTest = tasks.register("mediumTest", Test::class.java) {
     shouldRunAfter("test")
 }
 val largeTest = tasks.register("largeTest", Test::class.java) {
+    description = "ラージサイズのテストを実行します"
     group = "verification"
     useJUnitPlatform {
         includeTags("large")
