@@ -21,8 +21,8 @@ import org.venus.shared.dataset.RowState;
  */
 public class DataRowImpl implements DataRow {
     private final DataValues values = new DataValues();
+    private final DataTable table;
     private RowState state = RowState.UNKNOWN;
-    private DataTable table;
 
 
     /**
